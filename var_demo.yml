@@ -1,0 +1,28 @@
+# cluster management and credentials to access the instances
+netapp_hostname: "198.19.254.99"
+netapp_username: "fsxadmin"
+netapp_password: "Netapp1!"
+
+# Variables to create the volumes
+nameserver: 192.168.0.253
+ad_domain: "demo.netapp.com"
+ad_name: InsightCVOAWS
+ad_user: "Administrator@demo.netapp.com"
+username: "{{ netapp_username }}"
+password: "{{ netapp_password }}"
+vserver: "SVMSMBFSX2"
+nas:
+  - { vserver: "{{ vserver }}", name: vol_demo_nfs01, aggr: aggr1, size: 10, percent_snapshot_space: 10, snapshot_policy: none, protocol: nfs, client: 0.0.0.0/0, ro: sys, rw: sys, su: sys }
+#  - { vserver: "{{ src_vserver }}", name: vol_demo_cifs01, aggr: aggr1, size: 10, percent_snapshot_space: 10, snapshot_policy: none, protocol: cifs, share: demo01 }
+
+# Variables to create snapmirror
+src_ontap: "{{ netapp_hostname }}"
+src_name: InsightCVOAWSsrc
+src_lif: 10.221.2.132
+src_vserver: "svm_{{ src_name }}"
+src_volume: "{{ nas.0.name }}"
+dst_ontap: 10.221.2.159
+dst_name: InsightCVOAWSdst
+dst_lif: 10.221.2.139
+dst_aggr: "{{ nas.0.aggr }}"
+dst_vserver: "svm_{{ dst_name }}"
