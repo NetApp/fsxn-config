@@ -1,11 +1,11 @@
 # cluster management and credentials to access the instances
-netapp_hostname: "198.19.254.99"
+netapp_hostname: "198.19.253.110"
 netapp_username: "fsxadmin"
 netapp_password: "Netapp1!"
 
 # Variables to create the volumes
 nameserver: 192.168.0.253
-ad_domain: "demo.netapp.com"
+#ad_domain: "demo.netapp.com"
 ad_name: InsightCVOAWS
 ad_user: "Administrator@demo.netapp.com"
 username: "{{ netapp_username }}"
