@@ -8,8 +8,10 @@ nameserver: "10.0.4.73"
 ad_domain: "fsx.emea.netapp"
 ad_name: "sktfdemo"
 ad_user: "administrator@fsx.emea.netapp"
+ou: "OU=Computers,OU=pcs,DC=pcs,DC=emea,DC=netapp"
+#ou: "OU=Computer,OU=PCS,DC=fsx,DC=emea,DC=netapp"
 username: "{{ netapp_username }}"
-password: "Netapp1!"
+password: "NetApp123!"
 vserver: "svm_tfdemo"
 nas:
   - { vserver: "{{ vserver }}", name: vol_demo_nfs01, aggr: aggr1, size: 10, percent_snapshot_space: 10, snapshot_policy: none, protocol: nfs, client: 0.0.0.0/0, ro: sys, rw: sys, su: sys }
