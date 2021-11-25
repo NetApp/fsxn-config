@@ -27,8 +27,9 @@
         vserver: "{{ vserver }}"
         service_state: started
         domain: "{{ ad_domain }}"
+        ou: "{{ ou }}"
         admin_user_name: "{{ ad_user }}"
-        admin_password: "{{ netapp_password }}"
+        admin_password: "{{ ad_password }}"
         <<: *ontap
       when: ad_domain is defined
     - name: Create Cifs volume
