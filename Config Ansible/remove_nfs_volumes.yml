@@ -1,0 +1,24 @@
+- hosts: localhost
+  gather_facts: false
+  vars:
+    ontap: &ontap
+      hostname:       "{{ netapp_hostname }}"
+      username:       "{{ netapp_username }}"
+      password:       "{{ netapp_password }}"
+      https:          true
+      validate_certs: false
+  vars_files:
+    - var_demo.yml
+  collections:
+    - netapp.ontap
+  tasks:
+    - name: Remove nfs volume
+      na_ontap_volume:
+        state: absent
+        name: "{{ item.name }}"
+        aggregate_name: "{{ item.aggr }}"
+        vserver: "{{ item.vserver }}"
+        <<: *ontap
+      with_items:
+        "{{ nas }}"
+      when: item.protocol == "nfs"
