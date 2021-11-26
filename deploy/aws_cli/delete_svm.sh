@@ -1,0 +1,1 @@
+aws fsx delete-storage-virtual-machine --storage-virtual-machine-id svm-08882435d1ec6f51e
