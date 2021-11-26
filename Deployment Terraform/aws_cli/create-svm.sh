@@ -1,0 +1,1 @@
+aws fsx create-storage-virtual-machine --file-system-id fs-019986b9093fee7a4 --name svm_tfdemo
