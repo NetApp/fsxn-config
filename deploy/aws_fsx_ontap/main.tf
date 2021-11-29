@@ -21,3 +21,18 @@ resource "aws_fsx_ontap_file_system" "skellnertftest" {
   throughput_capacity = 512
   preferred_subnet_id = "subnet-085687ba71b1c528f"
 }
+
+resource "aws_fsx_ontap_storage_virtual_machine" "svm_tftest" {
+  file_system_id = aws_fsx_ontap_file_system.skellnertftest.id
+  name           = "svmtftest"
+
+  active_directory_configuration {
+    netbios_name = "svmtftest"
+    self_managed_active_directory_configuration {
+      dns_ips     = ["10.0.4.73"]
+      domain_name = "fsx.emea.netapp"
+      password    = "NetApp123!"
+      username    = "Administrator"
+    }
+  }
+}
