@@ -37,16 +37,3 @@ resource "aws_fsx_ontap_storage_virtual_machine" "svm_tftest" {
   }
 }
 
-resource "aws_fsx_ontap_volume" "tfcifstest" {
-  name                       = "cifstest"
-  junction_path              = "/cifstest"
-  size_in_megabytes          = 1024
-  storage_efficiency_enabled = true
-  security_style             = "NTFS"
-  storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.svm_tftest.id
-
-  tiering_policy {
-    name           = "AUTO"
-    cooling_period = 31
-  }
-}
