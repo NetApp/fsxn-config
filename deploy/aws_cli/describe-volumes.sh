@@ -1,1 +1,0 @@
-aws fsx describe-volumes --filters Name=storage-virtual-machine-id,Values=svm-08882435d1ec6f51e

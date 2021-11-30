@@ -11,28 +11,28 @@ terraform {
 
 provider "aws" {
   profile = "default"
-  region  = "eu-central-1"
+  region  = var.aws_region
 }
 
 resource "aws_fsx_ontap_file_system" "skellnertftest" {
-  storage_capacity    = 1024
-  subnet_ids          = ["subnet-085687ba71b1c528f", "subnet-0c61e5623e89ea615"]
+  storage_capacity    = var.fs_capacity
+  subnet_ids          = var.subnet_ids
   deployment_type     = "MULTI_AZ_1"
-  throughput_capacity = 512
-  preferred_subnet_id = "subnet-085687ba71b1c528f"
+  throughput_capacity = var.fs_throughput
+  preferred_subnet_id = var.subnet_ids[0]
 }
 
 resource "aws_fsx_ontap_storage_virtual_machine" "svm_tftest" {
   file_system_id = aws_fsx_ontap_file_system.skellnertftest.id
-  name           = "svmtftest"
+  name           = var.svm_name
 
   active_directory_configuration {
-    netbios_name = "svmtftest"
+    netbios_name = var.netbios_name
     self_managed_active_directory_configuration {
-      dns_ips     = ["10.0.4.73"]
-      domain_name = "fsx.emea.netapp"
-      password    = "NetApp123!"
-      username    = "Administrator"
+      dns_ips     = var.dns_ips
+      domain_name = var.domain_name
+      password    = var.ad_password
+      username    = var.ad_username
     }
   }
 }
