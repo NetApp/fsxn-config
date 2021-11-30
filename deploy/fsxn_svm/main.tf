@@ -11,21 +11,21 @@ terraform {
 
 provider "aws" {
   profile = "default"
-  region  = "eu-central-1"
+  region  = var.aws_region
 }
 
 resource "aws_fsx_ontap_storage_virtual_machine" "tfnfstest" {
-  file_system_id = "fs-0fbe243f4deff97ac"
-  name           = "svmnfstest"
+  file_system_id = var.fs_id
+  name           = var.svm_name
 
   # Only necessary for cifs volumes
 /*   active_directory_configuration {
-    netbios_name = "svmtftest"
+    netbios_name = var.netbios_name
     self_managed_active_directory_configuration {
-      dns_ips     = ["10.0.4.73"]
-      domain_name = "fsx.emea.netapp"
-      password    = "NetApp123!"
-      username    = "Administrator"
+      dns_ips     = var.dns_ips
+      domain_name = var.domain_name
+      password    = var.ad_password
+      username    = var.ad_username
     }
   }
  */
