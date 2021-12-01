@@ -14,7 +14,7 @@ provider "aws" {
   region  = var.aws_region
 }
 
-resource "aws_fsx_ontap_file_system" "skellnertftest" {
+resource "aws_fsx_ontap_file_system" "skellnerdemo" {
   storage_capacity    = var.fs_capacity
   subnet_ids          = var.subnet_ids
   deployment_type     = "MULTI_AZ_1"
@@ -22,8 +22,8 @@ resource "aws_fsx_ontap_file_system" "skellnertftest" {
   preferred_subnet_id = var.subnet_ids[0]
 }
 
-resource "aws_fsx_ontap_storage_virtual_machine" "svm_tftest" {
-  file_system_id = aws_fsx_ontap_file_system.skellnertftest.id
+resource "aws_fsx_ontap_storage_virtual_machine" "svm_demo" {
+  file_system_id = aws_fsx_ontap_file_system.skellnerdemo.id
   name           = var.svm_name
 
   active_directory_configuration {
