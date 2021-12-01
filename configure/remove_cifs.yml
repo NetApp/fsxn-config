@@ -8,7 +8,8 @@
       https:          true
       validate_certs: false
   vars_files:
-    - var_demo.yml
+    - vars.yml
+    - vault_vars.yml
   collections:
     - netapp.ontap
   tasks:

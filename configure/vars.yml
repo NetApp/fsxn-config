@@ -1,17 +1,15 @@
 # cluster management and credentials to access the instances
 netapp_hostname: "198.19.253.110"
 netapp_username: "fsxadmin"
-netapp_password: "Netapp1!"
+netapp_password: "{{ vault_fsxadmin_password }}"
 
 # Variables to create the volumes
 nameserver: "10.0.4.73"
 ad_domain: "fsx.emea.netapp"
 ad_name: "sktfdemo"
 ad_user: "Administrator"
-ad_password: "NetApp123!"
-#ou: "OU=Computers,OU=pcs,DC=pcs,DC=emea,DC=netapp"
+ad_password: "{{ vault_ad_password }}"
 ou: "OU=Computer,OU=PCS,DC=fsx,DC=emea,DC=netapp"
-#username: "{{ netapp_username }}"
 vserver: "svm_tfdemo"
 nas:
   - { vserver: "{{ vserver }}", name: vol_demo_nfs01, aggr: aggr1, size: 10, percent_snapshot_space: 10, snapshot_policy: none, protocol: nfs, client: 0.0.0.0/0, ro: sys, rw: sys, su: sys }
@@ -19,12 +17,12 @@ nas:
 
 # Variables to create snapmirror
 src_ontap: "{{ netapp_hostname }}"
-src_name: InsightCVOAWSsrc
-src_lif: 10.221.2.132
+src_name: "source_vserver_name"
+src_lif: "source_intercluster_lif"
 src_vserver: "svm_{{ src_name }}"
 src_volume: "{{ nas.0.name }}"
-dst_ontap: 10.221.2.159
-dst_name: InsightCVOAWSdst
-dst_lif: 10.221.2.139
+dst_ontap: "destinaton_cluster_hostname"
+dst_name: "destination_vserver_name"
+dst_lif: "destination_intercluster_lif"
 dst_aggr: "{{ nas.0.aggr }}"
 dst_vserver: "svm_{{ dst_name }}"
