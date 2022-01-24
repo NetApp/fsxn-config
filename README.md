@@ -9,6 +9,7 @@ The repo contains two folders. One for deployment with terraform and the second 
 - When running terraform plan make sure to specify -var-file secret.tfvars otherwise you will get prompted for the sensitive information
 - Then you can do the normal terraform procedure to deploy the fsxn filesystem
 - There are different directories to create a filesystem and an svm, only an svm or only a volume
+- There is also a directory for a flexcache demo environment. It deploys two FSxN instances. One with an active directory configuration and another one just with a vserver. In the subdirectory config-flexcache you can find Ansible playbooks to create the relationship with the cluster peering and the vserver peering between both instances as the prerequisite for flexcache. In a second playbook there is the play for creating the flexcache that caches the volume on the first instance. In addition playbooks to rollback the config are contained as well.
 
 ## Configuration (Ansible)
 - Edit the variables file and put in the settings for your environment
