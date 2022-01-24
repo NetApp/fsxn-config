@@ -1,0 +1,34 @@
+- hosts: localhost
+  name: Delete Flexcache Relationship
+  gather_facts: false
+  vars:
+    ontap: &ontap
+      hostname:       "{{ netapp_hostname }}"
+      username:       "{{ netapp_username }}"
+      password:       "{{ netapp_password }}"
+      https:          true
+      validate_certs: false
+  vars_files:
+    - var_demo.yml
+  collections:
+    - netapp.ontap
+  tasks:
+    - name: Delete vserver peer
+      na_ontap_vserver_peer:
+        state: absent
+        peer_vserver: "{{ dst_vserver }}"
+        vserver: "{{ src_vserver }}"
+        local_name_for_peer: "{{ dst_vserver }}"
+        local_name_for_source: "{{ src_vserver }}"       
+        peer_options:
+          hostname: "{{ dst_ontap }}"
+        <<: *ontap
+    - name: Delete cluster peer
+      na_ontap_cluster_peer:
+        state: absent
+        source_cluster_name: "{{ src_cluster }}"
+        dest_cluster_name: "{{ peer_cluster }}"
+        peer_options:
+          hostname: "{{ dst_ontap }}"
+        <<: *ontap
+

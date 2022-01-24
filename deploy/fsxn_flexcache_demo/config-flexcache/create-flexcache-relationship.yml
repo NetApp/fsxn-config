@@ -1,0 +1,37 @@
+- hosts: localhost
+  name: Snapmirror Create
+  gather_facts: false
+  vars:
+    ontap: &ontap
+      hostname:       "{{ netapp_hostname }}"
+      username:       "{{ netapp_username }}"
+      password:       "{{ netapp_password }}"
+      https:          true
+      validate_certs: false
+  vars_files:
+    - var_demo.yml
+  collections:
+    - netapp.ontap
+  tasks:
+    - name: Create cluster peer
+      na_ontap_cluster_peer:
+        state: present
+        source_intercluster_lifs: "{{ src_lif }}"
+        dest_intercluster_lifs: "{{ dst_lif }}"
+        passphrase: "{{ passphrase }}"
+        peer_options:
+          hostname: "{{ dst_ontap }}"
+        encryption_protocol_proposed: tls_psk
+        <<: *ontap
+    - name: Source vserver peer create
+      na_ontap_vserver_peer:
+        state: present
+        peer_vserver: "{{ dst_vserver }}"
+        peer_cluster: "{{ peer_cluster }}"
+        vserver: "{{ src_vserver }}"
+        applications: ['flexcache']
+        local_name_for_peer: "{{ dst_vserver }}"
+        local_name_for_source: "{{ src_vserver }}"       
+        peer_options:
+          hostname: "{{ dst_ontap }}"
+        <<: *ontap

@@ -1,0 +1,21 @@
+- hosts: localhost
+  name: Setup Flexcache
+  gather_facts: false
+  vars:
+    ontap: &ontap
+      hostname:       "{{ dst_ontap }}"
+      username:       "{{ netapp_username }}"
+      password:       "{{ netapp_password }}"
+      https:          true
+      validate_certs: false
+  vars_files:
+    - var_demo.yml
+  collections:
+    - netapp.ontap
+  tasks:
+    - name: Delete FlexCache
+      na_ontap_flexcache:
+        state: absent
+        name: "{{ flexcache_volume }}"
+        vserver: "{{ dst_vserver }}"
+        <<: *ontap

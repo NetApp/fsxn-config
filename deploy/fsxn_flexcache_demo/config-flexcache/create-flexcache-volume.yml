@@ -1,0 +1,28 @@
+- hosts: localhost
+  name: Setup Flexcache
+  gather_facts: false
+  vars:
+    ontap: &ontap
+      hostname:       "{{ dst_ontap }}"
+      username:       "{{ netapp_username }}"
+      password:       "{{ netapp_password }}"
+      https:          true
+      validate_certs: false
+  vars_files:
+    - var_demo.yml
+  collections:
+    - netapp.ontap
+  tasks:
+    - name: Create FlexCache
+      na_ontap_flexcache:
+        state: present
+        origin_volume: "{{ origin_volume}}"
+        name: "{{ flexcache_volume }}"
+        size: "{{ flexcache_size_gb }}"
+        size_unit: "gb"
+        aggr_list: "aggr1"
+        prepopulate:
+          dir_paths: "/{{ flexcache_volume }}"
+        origin_vserver: "{{ src_vserver }}"
+        vserver: "{{ dst_vserver }}"
+        <<: *ontap
