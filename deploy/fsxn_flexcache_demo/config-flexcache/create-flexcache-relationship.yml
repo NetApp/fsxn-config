@@ -1,5 +1,5 @@
 - hosts: localhost
-  name: Snapmirror Create
+  name: Setup Flexcache prerequisites
   gather_facts: false
   vars:
     ontap: &ontap
