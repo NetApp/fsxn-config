@@ -4,12 +4,25 @@
 ## Set the variables
 1. Edit the var_demo.yml file and put in the information of the FSxN instances you deployed with Terraform. You can find all necessary information in the aws console or in the terraform output.
 2. You need the filesystem ids for the cluster names, the management ip addresses and the intercluster ip addresses
-3. For the flexcache fill in the name, mountpoint and size of the cache volume.
+3. Fill in the name, mountpoint and size of the cache volume for the flexcache.
 
 ## Run the playbooks
-1. Run create-flexcache-relationship.yml with `ansible-playbook create-flexcache-relationship.yml`. It creates the cluster peer between both FSxN instances. Then vserver peering is done. Now you have all prerequisites to create the flexcache.
-2. Run create-flexcache-volume.yml with `ansible-playbook create-flexcache-volume.yml` to create the flexcache
-- **Attention - unfortunately there is a bug in the vserver peer module for FSxN. The vserver peer stays in pending state. To fix this you have to manually run "vserver peer accept -vserver <vserver> -peer-vserver <peer-vserver> on the peer FSxN instance. The issue is reported and I'm working on a workaround for the current playbook but it's not done yet.**
+1. Run `ansible-playbook create-flexcache-relationship.yml`. It creates the cluster and vserver peer between both FSxN instances. Now you have all prerequisites to create the flexcache.
+2. Run `ansible-playbook create-flexcache-volume.yml` to create the flexcache
+
+**Attention - unfortunately there is a bug in the vserver peer module for FSxN. The vserver peer stays in pending state. To fix this you have to manually run "vserver peer accept -vserver <vserver> -peer-vserver <peer-vserver> on the peer FSxN instance. The issue is reported and I'm working on a workaround for the current playbook but it's not done yet.**
+    TASK [Source vserver peer create] ***********************************************************************************************************************************
+    fatal: [localhost]: FAILED! => {
+        "changed": false
+    }
+
+    MSG:
+
+    job reported error: {'message': "entry doesn't exist", 'code': '4', 'target': 'uuid'}, received {'job': {'uuid': '11846b8c-7d12-11ec-b4fd-27af4f524e66', '_links': {'self': {'href': '/api/cluster/jobs/11846b8c-7d12-11ec-b4fd-27af4f524e66'}}}}.
+
+    PLAY RECAP **********************************************************************************************************************************************************
+    localhost                  : ok=1    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
 
 ## Example output
     FsxId092d3dcdeb87ca58b::> vserver peer show
