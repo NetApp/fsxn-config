@@ -9,6 +9,7 @@
 ## Run the playbooks
 1. Run `ansible-playbook create-flexcache-relationship.yml`. It creates the cluster and vserver peer between both FSxN instances. Now you have all prerequisites to create the flexcache.
 2. Run `ansible-playbook create-flexcache-volume.yml` to create the flexcache
+3. Run `ansible-playbook set-export-policy.yml` to set an export policy for the flexcache volume
 
 ## Attention
 Unfortunately there is a bug in the vserver peer module for FSxN:
