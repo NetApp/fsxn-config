@@ -1,0 +1,40 @@
+- hosts: localhost
+  name: Setup Flexcache
+  gather_facts: false
+  vars:
+    ontap: &ontap
+      hostname:       "{{ dst_ontap }}"
+      username:       "{{ netapp_username }}"
+      password:       "{{ netapp_password }}"
+      https:          true
+      validate_certs: false
+  vars_files:
+    - var_demo.yml
+  collections:
+    - netapp.ontap
+  tasks:
+    - name: Create Policy
+      na_ontap_export_policy:
+        state: present
+        name: "{{ policy_name }}"
+        vserver: "{{ dst_vserver }}"
+        <<: *ontap
+    - name: Setup rules
+      na_ontap_export_policy_rule:
+        state: present
+        policy_name: "{{ policy_name }}"
+        vserver: "{{ dst_vserver }}"
+        client_match: "{{ client_match }}"
+        ro_rule: "{{ ro_rule }}"
+        rw_rule: "{{ rw_rule }}"
+        super_user_security: "{{ super_user_security }}"
+        allow_suid: true
+        protocol: "{{ protocol }}"
+        <<: *ontap
+    - name: Modify flexcache volume
+      na_ontap_volume:
+        state: present
+        name: "{{ flexcache_volume }}"
+        policy: "{{ policy_name }}"
+        vserver: "{{ dst_vserver }}"
+        <<: *ontap
