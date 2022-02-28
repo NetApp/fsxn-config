@@ -20,6 +20,7 @@ peer_cluster: "FsxId09a5e1d652c8947ae"
 origin_volume: "vol_skdemo01"
 flexcache_volume: "vol_flexcache01"
 flexcache_size_gb: 1
+policy_name: "default"
 client_match: "10.0.1.0/24,10.0.5.0/24"
 ro_rule: "sys"
 rw_rule: "sys"
