@@ -35,6 +35,7 @@
       na_ontap_volume:
         state: present
         name: "{{ flexcache_volume }}"
+        junction_path: "/{{ flexcache_volume }}"
         policy: "{{ policy_name }}"
         vserver: "{{ dst_vserver }}"
         <<: *ontap
