@@ -13,6 +13,13 @@
   collections:
     - netapp.ontap
   tasks:
+    - name: Unmount flexcache volume
+      na_ontap_volume:
+        state: present
+        name: "{{ flexcache_volume }}"
+        junction_path: ''
+        vserver: "{{ dst_vserver }}"
+        <<: *ontap
     - name: Delete FlexCache
       na_ontap_flexcache:
         state: absent
