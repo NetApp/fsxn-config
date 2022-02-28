@@ -1,5 +1,5 @@
 # cluster management and credentials to access the instances
-netapp_hostname: "198.19.254.109"
+netapp_hostname: "198.19.253.77"
 netapp_username: "fsxadmin"
 netapp_password: "Netapp1!"
 
