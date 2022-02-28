@@ -6,21 +6,21 @@ netapp_password: "Netapp1!"
 # Variables to create snapmirror
 src_ontap: "{{ netapp_hostname }}"
 src_name: skdemo01
-src_lif: "10.0.4.8,10.0.5.85"
+src_lif: "10.0.4.156,10.0.5.239"
 src_vserver: "svm_{{ src_name }}"
-src_cluster: "FsxId0e711a91c5abe695c"
-dst_ontap: "198.19.254.66"
+src_cluster: "FsxId0bb0a44592779024d"
+dst_ontap: "198.19.253.177"
 dst_name: skdemo02
-dst_lif: "10.0.4.85,10.0.5.96"
+dst_lif: "10.0.4.32,10.0.5.168"
 dst_vserver: "svm_{{ dst_name }}"
 passphrase: IamAp483p45a83
-peer_cluster: "FsxId092d3dcdeb87ca58b"
+peer_cluster: "FsxId09a5e1d652c8947ae"
 
 # flexcache variables
 origin_volume: "vol_skdemo01"
 flexcache_volume: "vol_flexcache01"
 flexcache_size_gb: 1
-client_match: "10.0.4.0/24,10.0.5.0/24"
+client_match: "10.0.1.0/24,10.0.5.0/24"
 ro_rule: "sys"
 rw_rule: "sys"
 super_user_security: "sys"
