@@ -18,4 +18,4 @@ The repo contains two folders. One for deployment with terraform and the second 
 ### Playbooks
 - Create nfs volume
 - Create cifs volume, DNS, Cifs Server and cifs share
-- Plus corresponding remove playbooks
+- Plus remove playbooks for these resources
