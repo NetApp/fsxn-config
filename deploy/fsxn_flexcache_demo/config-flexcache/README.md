@@ -11,37 +11,8 @@
 2. Run `ansible-playbook create-flexcache-volume.yml` to create the flexcache
 3. Run `ansible-playbook modify-flexcache-volume.yml` to set an export policy and mount the flexcache volume
 
-## Attention
-Unfortunately there is a bug in the vserver peer module for FSxN:
-
-    TASK [Source vserver peer create] ***********************************************************************************************************************************
-    fatal: [localhost]: FAILED! => {
-        "changed": false
-    }
-
-    MSG:
-
-    job reported error: {'message': "entry doesn't exist", 'code': '4', 'target': 'uuid'}, received {'job': {'uuid': '11846b8c-7d12-11ec-b4fd-27af4f524e66', '_links': {'self': {'href': '/api/cluster/jobs/11846b8c-7d12-11ec-b4fd-27af4f524e66'}}}}.
-
-    PLAY RECAP **********************************************************************************************************************************************************
-    localhost                  : ok=1    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
-
-
-## Temporary manual fix
-The vserver peer stays in pending state. To fix this you have to manually run `vserver peer accept -vserver <vserver> -peer-vserver <peer-vserver>` on the peer FSxN instance. The issue is reported and I'm working on a workaround for the current playbook but it's not done yet.
-
-    FsxId092d3dcdeb87ca58b::> vserver peer show
-                Peer        Peer                           Peering        Remote
-    Vserver     Vserver     State        Peer Cluster      Applications   Vserver
-    ----------- ----------- ------------ ----------------- -------------- ---------
-    svm_skdemo02 
-                svm_skdemo01 
-                            pending      FsxId0e711a91c5abe695c 
-                                                        flexcache      svm_skdemo01
-
-    FsxId092d3dcdeb87ca58b::> vserver peer accept -vserver svm_skdemo02 -peer-vserver svm_skdemo01 
-
-    Info: [Job 54] 'vserver peer accept' job queued 
+## Result
+Vservers are peered and there's a flexcache volume on the second filesystem with the origin volume on the first filesystem.
 
     FsxId092d3dcdeb87ca58b::> vserver peer show
                 Peer        Peer                           Peering        Remote
