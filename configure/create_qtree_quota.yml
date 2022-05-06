@@ -29,7 +29,7 @@
         vserver: "{{ item.vserver }}"
         volume: "{{ item.flexvol_name }}"
         quota_target: "/vol/{{ item.flexvol_name }}/{{ item.qtree_name }}"
-        type: qtree
+        type: tree
         disk_limit: "{{ item.disk_limit }}"
         set_quota_status: True
         <<: *ontap
