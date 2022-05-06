@@ -18,4 +18,5 @@ The repo contains two folders. One for deployment with terraform and the second 
 ### Playbooks
 - Create nfs volume
 - Create cifs volume, DNS, Cifs Server and cifs share
+- Create qtree and a qtree quota on a volume (New!)
 - Plus remove playbooks for these resources
