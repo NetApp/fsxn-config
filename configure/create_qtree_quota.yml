@@ -23,3 +23,15 @@
         <<: *ontap
       with_items:
         "{{ qtree }}"
+    - name: Add/Set quota
+      na_ontap_quotas:
+        state: present
+        vserver: "{{ item.vserver }}"
+        volume: "{{ item.flexvol_name }}"
+        quota_target: "/vol/{{ item.flexvol_name }}/{{ item.qtree_name }}"
+        type: qtree
+        disk_limit: "{{ item.disk_limit }}"
+        set_quota_status: True
+        <<: *ontap
+      with_items:
+        "{{ qtree }}"
