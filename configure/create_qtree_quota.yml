@@ -1,0 +1,25 @@
+- hosts: localhost
+  gather_facts: false
+  vars:
+    ontap: &ontap
+      hostname:       "{{ netapp_hostname }}"
+      username:       "{{ netapp_username }}"
+      password:       "{{ netapp_password }}"
+      https:          true
+      validate_certs: false
+  vars_files:
+    - vars.yml
+    - vault_vars.yml
+  collections:
+    - netapp.ontap
+  tasks:
+    - name: Create Qtree
+      na_ontap_qtree:
+        state: present
+        name: "{{ item.qtree_name }}"
+        flexvol_name: "{{ item.flexvol_name }}"
+        security_style: "{{ item.security_style }}"
+        vserver: "{{ item.vserver }}"
+        <<: *ontap
+      with_items:
+        "{{ qtree }}"

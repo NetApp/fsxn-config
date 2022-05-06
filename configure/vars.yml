@@ -1,5 +1,5 @@
 # cluster management and credentials to access the instances
-netapp_hostname: "198.19.253.110"
+netapp_hostname: "198.19.254.227"
 netapp_username: "fsxadmin"
 netapp_password: "{{ vault_fsxadmin_password }}"
 
@@ -14,6 +14,8 @@ vserver: "svm_tfdemo"
 nas:
   - { vserver: "{{ vserver }}", name: vol_demo_nfs01, aggr: aggr1, size: 10, percent_snapshot_space: 10, snapshot_policy: none, protocol: nfs, client: 0.0.0.0/0, ro: sys, rw: sys, su: sys }
   - { vserver: "{{ vserver }}", name: vol_demo_cifs01, aggr: aggr1, size: 10, percent_snapshot_space: 10, snapshot_policy: none, protocol: cifs, share: demo01 }
+qtree:
+  - { qtree_name: "{{ skdemoqtree }}", flexvol_name: "{{ nas.0.name }}", security_style: "unix", vserver: "{{ nas.0.vserver }}" }
 
 # Variables to create snapmirror
 src_ontap: "{{ netapp_hostname }}"
