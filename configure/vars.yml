@@ -10,7 +10,7 @@ ad_name: "sktfdemo"
 ad_user: "Administrator"
 ad_password: "{{ vault_ad_password }}"
 ou: "OU=Computer,OU=PCS,DC=fsx,DC=emea,DC=netapp"
-vserver: "svm_tfdemo"
+vserver: "svm_skdemo"
 nas:
   - { vserver: "{{ vserver }}", name: vol_demo_nfs01, aggr: aggr1, size: 10, percent_snapshot_space: 10, snapshot_policy: none, protocol: nfs, client: 0.0.0.0/0, ro: sys, rw: sys, su: sys }
   - { vserver: "{{ vserver }}", name: vol_demo_cifs01, aggr: aggr1, size: 10, percent_snapshot_space: 10, snapshot_policy: none, protocol: cifs, share: demo01 }
