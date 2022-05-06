@@ -31,7 +31,6 @@
         ro_rule: "{{ item.ro }}"
         rw_rule: "{{ item.rw }}"
         super_user_security: "{{ item.su }}"
-        allow_suid: yes
         protocol: "{{ item.protocol }}"
         <<: *ontap
       with_items:
