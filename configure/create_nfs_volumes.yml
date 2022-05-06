@@ -50,6 +50,7 @@
         percent_snapshot_space: "{{ item.percent_snapshot_space }}"
         snapshot_policy: "{{ item.snapshot_policy }}"
         vserver: "{{ item.vserver }}"
+        use_rest: always
         <<: *ontap
       with_items:
         "{{ nas }}"
