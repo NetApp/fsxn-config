@@ -1,7 +1,7 @@
 aws_region                 = "eu-central-1"
 deployment_type            = "SINGLE_AZ_1"
 fs_capacity                = 1024
-fs_throughput              = 512
+fs_throughput              = 128
 automatic_backup_retention = 30
 #subnet_ids                 = ["subnet-085687ba71b1c528f", "subnet-0c61e5623e89ea615"]
 subnet_ids                 = ["subnet-085687ba71b1c528f"]
