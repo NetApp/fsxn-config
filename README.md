@@ -2,6 +2,12 @@
 # Deployment and Config Management for FSxN Filesystems
 The repo contains two folders. One for deployment with terraform and the second for configuration with ansible. As a Cloud Solution Architect for AWS with NetApp I use this code to deploy a complete fsxn filesystem with different volumes for cifs and nfs for demo purposes. With that I can easily spin up a demo environment and destroy it afterwards so that I get a quick and cost-effective environment to showcase the solution or do some testings with fsxn. Feel free to adapt it according to your needs.
 
+## Recent Changes
+### 01.08.2022
+Add deployment folder for single az deployment
+Add variable for deployment type
+New aws provider version required, update your environment with terraform init -upgrade in advance
+
 ## Deployment (Terraform)
 - As a prerequisite you have to configure the aws cli with your credentials to access aws
 - Edit the terraform.tfvars file and put in your settings
