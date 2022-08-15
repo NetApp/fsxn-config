@@ -29,6 +29,11 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
+variable "endpoint_ip_address_range" {
+  description = "Floating IP CIDR for the filesystem"
+  type        = string
+}
+
 variable "svm_name" {
   description = "Name of svm"
   type        = string

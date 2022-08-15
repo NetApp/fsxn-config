@@ -20,6 +20,7 @@ resource "aws_fsx_ontap_file_system" "skellnerdemo" {
   deployment_type                 = "MULTI_AZ_1"
   throughput_capacity             = var.fs_throughput
   preferred_subnet_id             = var.subnet_ids[0]
+  endpoint_ip_address_range       = var.endpoint_ip_address_range
   automatic_backup_retention_days = var.automatic_backup_retention
   fsx_admin_password              = var.fsxadmin_password
   tags = {

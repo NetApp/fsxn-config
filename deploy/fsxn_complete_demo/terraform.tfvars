@@ -7,3 +7,4 @@ svm_name                   = "svm_skdemo"
 netbios_name               = "skcifsdemo"
 dns_ips                    = ["10.0.4.73"]
 domain_name                = "fsx.emea.netapp"
+endpoint_ip_address_range  = "10.12.72.0/24"
