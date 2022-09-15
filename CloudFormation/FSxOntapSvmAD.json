@@ -1,0 +1,91 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "OntapMultiAzFileSystemWithAllConfigs": {
+            "Type": "AWS::FSx::FileSystem",
+            "Properties": {
+                "FileSystemType": "ONTAP",
+                "StorageCapacity": 1024,
+                "StorageType": "SSD",
+                "SubnetIds": [
+                    "subnet-085687ba71b1c528f",
+                    "subnet-0c61e5623e89ea615"
+                ],
+                "SecurityGroupIds": [
+                    "sg-090547e1fdff57a3d"
+                ],
+                "OntapConfiguration": {
+                    "AutomaticBackupRetentionDays": 3,
+                    "DailyAutomaticBackupStartTime": "07:00",
+                    "DeploymentType": "MULTI_AZ_1",
+                    "FsxAdminPassword": {
+                        "Fn::Join": [
+                            ":",
+                            [
+                                "{{resolve:secretsmanager",
+                                "PcsDefaultAdminPassword",
+                                "SecretString}}"
+                            ]
+                        ]
+                    },
+                "DiskIopsConfiguration": {
+                        "Iops": 3172,
+                        "Mode": "USER_PROVISIONED"
+                    },
+                    "PreferredSubnetId": "subnet-085687ba71b1c528f",
+                    "RouteTableIds": [
+                        "rtb-0d516b49a8ad19078"
+                    ],
+                    "ThroughputCapacity": 128,
+                    "WeeklyMaintenanceStartTime": "4:16:30"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "OntapFileSystem_MAZ"
+                    }
+                ]
+            }
+        },
+        "OntapStorageVirtualMachineWithAllConfigs": {
+            "Type": "AWS::FSx::StorageVirtualMachine",
+            "Properties": {
+                "ActiveDirectoryConfiguration": {
+                    "NetBiosName": "skcifsdemo",
+                    "SelfManagedActiveDirectoryConfiguration": {
+                        "DnsIps": [
+                            "10.0.4.73"
+                        ],
+                        "DomainName": "fsx.emea.netapp",
+                        "Password": {
+                            "Fn::Join": [
+                                ":",
+                                [
+                                    "{{resolve:secretsmanager",
+                                    "PcsDefaultAdminPassword",
+                                    "SecretString}}"
+                                    ]
+                            ]
+                        },
+                        "UserName": "Administrator"
+                    }
+                },
+                "FileSystemId": {
+                    "Ref": "OntapMultiAzFileSystemWithAllConfigs"
+                },
+                "Name": "svmdemo",
+                "RootVolumeSecurityStyle": "NTFS",
+                "SvmAdminPassword": "{{resolve:secretsmanager:PcsDefaultAdminPassword:SecretString}}",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "svmdemo"
+                    }
+                ]
+            },
+            "DependsOn": [
+                "OntapMultiAzFileSystemWithAllConfigs"
+            ]
+        }
+    }
+}
